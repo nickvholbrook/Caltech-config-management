@@ -24,7 +24,7 @@
           - mysql-server
           - wordpress
           - python
-          - pip 
+          - python3-pip 
 
       - name: Install PyMySQL
         pip:
