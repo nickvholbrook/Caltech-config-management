@@ -1,7 +1,7 @@
 #!/bin/bash
-apt update -y
 
-useradd -m devops -p "password1234"
+
+adduser -m devops -p "password1234"
 usermod -a -G sudo devops
 sed -i '21 i devops  ALL=(ALL) NOPASSWD:ALL' /etc/sudoers
 
@@ -18,5 +18,5 @@ usermod -a -G sudo devops
 sed -i '21 i devops  ALL=(ALL) NOPASSWD:ALL' /etc/sudoers
 
 # Run from control host
-# ssh-keygen -t rsa -f /home/devops/.ssh/id_rsa -q -P ""  # Run as devops user
-# ssh-copy-id devops@192.168.56.6
+ssh-keygen   # Run as devops user
+ssh-copy-id devops@192.168.56.6

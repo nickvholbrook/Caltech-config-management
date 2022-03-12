@@ -1,7 +1,7 @@
 [control]
 192.168.56.5
 
-[web] 
+[wordpress] 
 192.168.56.6
 
 [db]
