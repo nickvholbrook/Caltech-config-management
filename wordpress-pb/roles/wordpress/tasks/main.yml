@@ -1,5 +1,6 @@
 ---
 # tasks file for wordpress
+      become: yes
       - name: Install WordPress and supporting applications on web server
         apt: 
           name: "{{ item }}"
