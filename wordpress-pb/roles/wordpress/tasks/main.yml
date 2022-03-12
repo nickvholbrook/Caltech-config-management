@@ -32,13 +32,18 @@
       #     state: present
       #   become: yes
 
+      # - name: Create MySQL DB
+      #   mysql_db:
+      #     login_unix_socket: /var/run/mysqld/mysqld.sock
+      #     name: "{{ wp_mysql_db }}"
+      #     login_user: root
+      #     login_password: "{{ sql_rootpw }}"
+      #     state: present
+
       - name: Create MySQL DB
-        mysql_db:
-          login_unix_socket: /var/run/mysqld/mysqld.sock
-          name: "{{ wp_mysql_db }}"
-          login_user: root
-          login_password: "{{ sql_rootpw }}"
-          state: present
+        mysql_db: name: {{ wp_mysql_db }} state=present
+        become: yes
+
   
 
       - name: Create WordPress mysql user
