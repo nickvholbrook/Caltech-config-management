@@ -1,0 +1,82 @@
+---
+# tasks file for wordpress
+      - name: Install WordPress and supporting applications on web server
+        apt: 
+          name: "{{ item }}"
+          state: present
+          update_cache: yes
+        loop:
+          - apache2
+          - php7.4-mysql
+          - php7.4-curl
+          - php7.4-json
+          - php7.4-cgi
+          - php7.4-xsl
+          - php7.4-cgi
+          - php7.4-gd
+          - php7.4-mbstring
+          - php7.4-zip
+          - php7.4-xmlrpc
+          - php7.4-soap
+          - php7.4-intl
+          - mysql-server
+          - wordpress
+          - python
+          - pip 
+
+      - name: Install PyMySQL
+        pip:
+          name: pymysql
+          state: present
+
+      - name: Create MySQL DB
+        mysql_db:
+          login_unix_socket: /var/run/mysqld/mysqld.sock
+          name: "{{ wp_mysql_db }}"
+          login_user: root
+          login_password: "{{ sql_rootpw }"
+          state: present
+
+      - name: Create WordPress mysql user
+        mysql_user:
+          name: "{{ wp_mysql_user }}"
+          password: "{{ wp_mysql_password }}"
+          priv: '*.*:ALL'
+          login_unix_socket: /var/run/mysqld/mysqld.sock
+
+      - name: Copy PHP config file to server
+        template:
+          src: "/home/devops/project2/wp-config.php.j2"
+          dest: "/var/www/wordpress/wp-config.php"
+
+      - name: Set up Apache VirtualHost
+        template:
+          src: "/home/devops/project2/apache.conf.j2"
+          dest: "/etc/apache2/sites-available/{{ http_conf }}"
+          notify: Reload Apache
+  
+      - name: Create document root
+        file:
+          path: "/var/www/{{ http_host }}"
+          state: directory
+          owner: "devops"
+          group: "root"
+          mode: '0755'
+
+      - name: Disable default Apache site
+        shell: /usr/sbin/a2dissite 000-default.conf
+        notify: Restart Apache
+
+      - name: Enable rewrite module
+        shell: /usr/sbin/a2enmod rewrite
+        notify: Reload Apache
+
+      - name: Enable new site
+        shell: /usr/sbin/a2ensite {{ http_conf }}
+        notify: Reload Apache
+
+      - name: UFW - Allow HTTP on port 8080
+        ufw:
+          rule: allow
+          port: "{{ http_port }}" 
+          proto: tcp

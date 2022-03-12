@@ -1,0 +1,9 @@
+---
+# vars file for wordpress
+wp_mysql_db: wordpress
+wp_mysql_user: wordpress
+wp_mysql_password: "randompassword"
+sql_rootpw: "mypass"
+http_host: "nicksblog.com"
+http_port: 8080
+http_conf: "nicksblogs.com.conf"
