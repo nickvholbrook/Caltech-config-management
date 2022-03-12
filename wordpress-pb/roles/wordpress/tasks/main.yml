@@ -1,10 +1,11 @@
 ---
 # tasks file for wordpress
-      become: yes
+
       - name: Install WordPress and supporting applications on web server
         apt: 
           name: "{{ item }}"
           state: present
+          become: yes
           update_cache: yes
         loop:
           - apache2
@@ -29,6 +30,7 @@
         pip:
           name: pymysql
           state: present
+        become: yes
 
       - name: Create MySQL DB
         mysql_db:
@@ -37,6 +39,7 @@
           login_user: root
           login_password: "{{ sql_rootpw }"
           state: present
+        become: yes    
 
       - name: Create WordPress mysql user
         mysql_user:
@@ -44,18 +47,21 @@
           password: "{{ wp_mysql_password }}"
           priv: '*.*:ALL'
           login_unix_socket: /var/run/mysqld/mysqld.sock
+        become: yes
 
       - name: Copy PHP config file to server
         template:
           src: "/home/devops/project2/wp-config.php.j2"
           dest: "/var/www/wordpress/wp-config.php"
+        become: yes
 
       - name: Set up Apache VirtualHost
         template:
           src: "/home/devops/project2/apache.conf.j2"
           dest: "/etc/apache2/sites-available/{{ http_conf }}"
           notify: Reload Apache
-  
+        become: yes
+
       - name: Create document root
         file:
           path: "/var/www/{{ http_host }}"
@@ -63,10 +69,12 @@
           owner: "devops"
           group: "root"
           mode: '0755'
+        become: yes
 
       - name: Disable default Apache site
         shell: /usr/sbin/a2dissite 000-default.conf
         notify: Restart Apache
+        become: yes
 
       - name: Enable rewrite module
         shell: /usr/sbin/a2enmod rewrite
@@ -81,3 +89,4 @@
           rule: allow
           port: "{{ http_port }}" 
           proto: tcp
+        become: yes
