@@ -3,7 +3,7 @@
    vars:
      - wp_mysql_db: wordpress
      - wp_mysql_user: wordpress
-     - wp_mysql_password: randompassword
+     - wp_mysql_password: "randompassword"
      - sql_rootpw: "mypass"
      - http_host: "nicksblog.com"
      - http_port: 8080
@@ -57,7 +57,7 @@
   
       - name: Create document root
         file:
-          path: "/var/www/{{ http_host}}"
+          path: "/var/www/{{ http_host }}"
           state: directory
           owner: "devops"
           group: "root"
