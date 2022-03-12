@@ -3,7 +3,7 @@ Vagrant.configure("2") do |config|
     control.vm.box = "ubuntu/focal64"
     control.vm.network "private_network", ip: "192.168.56.5" 
     control.vm.provision "shell",
-      inline: "./controlsetup.sh"
+      inline: "/home/nick/repos/Caltech-config-management/controlsetup.sh"
 
   end
 
