@@ -2,10 +2,10 @@
 # tasks file for wordpress
 
       - name: Install WordPress and supporting applications on web server
+        become: yes
         apt: 
           name: "{{ item }}"
           state: present
-          become: yes
           update_cache: yes
         loop:
           - apache2
@@ -39,7 +39,7 @@
           login_user: root
           login_password: "{{ sql_rootpw }"
           state: present
-        become: yes    
+  
 
       - name: Create WordPress mysql user
         mysql_user:
