@@ -26,11 +26,11 @@
           - python
           - python3-pip 
 
-      - name: Install PyMySQL
-        pip:
-          name: pymysql
-          state: present
-        become: yes
+      # - name: Install PyMySQL
+      #   pip:
+      #     name: pymysql
+      #     state: present
+      #   become: yes
 
       - name: Create MySQL DB
         mysql_db:
