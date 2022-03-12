@@ -11,7 +11,7 @@
 
    become: yes
    tasks: 
-      - name: Install WordPress and supporting applications
+      - name: Install WordPress and supporting applications on web server
         apt: 
           name: "{{ item }}"
           state: present
@@ -19,10 +19,17 @@
         loop:
           - apache2
           - php
+          - php-common
+          - php-cli
+          - php-gd
+          - php-curl #You can add or remove PHP extensions according to your choice
+          - php-mysqlnd
+          - php-fpm
+          - php-mysqli
           - mysql-server
           - wordpress
           - python
-          - pip
+          - pip 
 
       - name: Install PyMySQL
         pip:
