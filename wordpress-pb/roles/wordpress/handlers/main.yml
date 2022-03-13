@@ -2,13 +2,9 @@
 # handlers file for wordpress
 
 - name: Reload Apache
-service:
-  name: apache2
-  state: reloaded
+  service: name=apache2 state=reloaded
 becomes: yes
 
 - name: Restart Apache
-service:
-  name: apache2
-  state: restarted
+  service: name=apache2 state=restarted
 becomes: yes
