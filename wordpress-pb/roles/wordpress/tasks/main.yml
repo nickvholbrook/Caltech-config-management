@@ -25,8 +25,8 @@
           - php7.4-intl
 
       - name: Install Python
-        raw: apt -y update && apt install -y python-minimal
-        when: check_python.rc != 0      
+        raw: apt install -y python-minimal
+   
 
       - name: Install PyMySQL
         pip:
