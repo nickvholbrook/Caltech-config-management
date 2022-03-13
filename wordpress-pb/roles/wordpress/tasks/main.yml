@@ -67,11 +67,11 @@
 
       - name: Set the correct permissions on Wordpress directories
         become: yes
-        command: find /var/www/wordpress/ -type d -exec chmod 751 {} \;
+        command: find /var/www/wordpress/ -type d -exec chmod 755 {} \;
 
       - name: Set the correct permissions for Wordpress files
         become: yes
-        command: find /var/www/wordpress/ -type f -exec chmod 641 {} \;
+        command: find /var/www/wordpress/ -type f -exec chmod 755 {} \;
          
       # - name: Update default Apache site
       #   become_user: devops
