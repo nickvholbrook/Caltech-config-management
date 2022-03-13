@@ -8,6 +8,7 @@
           state: present
           update_cache: yes
         loop:
+          - python2
           - apache2
           - mysql-server
           - php7.4
@@ -24,8 +25,8 @@
           - php7.4-soap
           - php7.4-intl
 
-      - name: Install Python
-        raw: apt install -y python-minimal
+      # - name: Install Python
+      #   raw: apt install -y python-minimal
    
 
       - name: Install PyMySQL
