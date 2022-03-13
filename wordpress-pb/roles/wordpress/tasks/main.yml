@@ -47,13 +47,13 @@
 
       - name: Copy PHP config file to server
         template:
-          src: "./wp-config.php.j2"
+          src: "wp-config.php.j2"
           dest: "/var/www/wordpress/wp-config.php"
         become: yes
 
       - name: Set up Apache VirtualHost
         template:
-          src: "./apache.conf.j2"
+          src: "apache.conf.j2"
           dest: "/etc/apache2/sites-available/{{ http_conf }}"
           notify: Reload Apache
         become: yes
