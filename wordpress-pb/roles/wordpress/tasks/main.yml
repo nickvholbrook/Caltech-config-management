@@ -77,10 +77,10 @@
           mode: '0755'
         become: yes
 
-      # - name: Disable default Apache site
-      #   shell: /usr/sbin/a2dissite 000-default.conf
-      #   become: yes
-      #   notify: Restart Apache
+      - name: Disable default Apache site
+        shell: /usr/sbin/a2dissite 000-default.conf
+        become: yes
+        notify: Restart Apache
 
 
       # - name: Enable rewrite module
