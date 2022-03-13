@@ -10,9 +10,19 @@
         loop:
           - apache2
           - mysql-server
-          - php7.2-mysql
-          - php7.2
-          - python-minimal
+          - php7.4-mysql
+          - php7.4-curl
+          - php7.4-json
+          - php7.4-cgi
+          - php7.4-xsl
+          - php7.4-cgi
+          - php7.4-gd
+          - php7.4-mbstring
+          - php7.4-zip
+          - php7.4-xmlrpc
+          - php7.4-soap
+          - php7.4-intl
+          - python
           - libapache2-mod-php7.2
           - python-mysqldb
           - php7.2-gd
