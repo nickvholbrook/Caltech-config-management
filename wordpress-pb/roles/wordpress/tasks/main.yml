@@ -45,32 +45,32 @@
         become: yes
 
 
-        - name: Download and install Wordpress
-          become: yes
-          unarchive:
-            src: https://wordpress.org/latest.tar.gz
-            dest: /var/www/
-            remote_src: yes
-
-        - name: Update default Apache site
-          lineinfile:
-            path: /etc/apache2/sites-enabled/000-default.conf
-            state: present
-            regexp: '(.)+DocumentRoot /var/www/html'
-            line: 'DocumentRoot /var/www/wordpress'
-          notify: Restart Apache  
-
-      - name: Copy PHP config file to server
-        template:
-          src: "wp-config.php.j2"
-          dest: "/var/www/wordpress/wp-config.php"
+      - name: Download and install Wordpress
         become: yes
+        unarchive:
+          src: https://wordpress.org/latest.tar.gz
+          dest: /var/www/
+          remote_src: yes
 
-      - name: Set up Apache VirtualHost
-        become: yes
-        template:
-          src: "apache.conf.j2"
-          dest: "/etc/apache2/sites-enabled/000-default.conf"
+      - name: Update default Apache site
+        lineinfile:
+          path: /etc/apache2/sites-enabled/000-default.conf
+          state: present
+          regexp: '(.)+DocumentRoot /var/www/html'
+          line: 'DocumentRoot /var/www/wordpress'
+        notify: Restart Apache  
+
+    - name: Copy PHP config file to server
+      template:
+        src: "wp-config.php.j2"
+        dest: "/var/www/wordpress/wp-config.php"
+      become: yes
+
+    - name: Set up Apache VirtualHost
+      become: yes
+      template:
+        src: "apache.conf.j2"
+        dest: "/etc/apache2/sites-enabled/000-default.conf"
 
 
       # - name: Create document root
