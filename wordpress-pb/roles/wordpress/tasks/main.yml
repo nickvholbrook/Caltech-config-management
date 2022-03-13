@@ -110,7 +110,7 @@
       - name: Enable new site
         become: yes
         shell: /usr/sbin/a2ensite "wordpress.conf"
-        notify: Reload Apache service
+        notify: Reload Apache
 
       # - name: UFW - Allow HTTP on port 8080
       #   ufw:
