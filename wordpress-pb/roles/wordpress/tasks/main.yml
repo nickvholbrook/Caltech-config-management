@@ -19,6 +19,7 @@
           - python2.7
           - python-pip
           - python3-pip
+          - MySQL-python
 
       # - name: Install Python
       #   raw: apt install -y python-minimal
