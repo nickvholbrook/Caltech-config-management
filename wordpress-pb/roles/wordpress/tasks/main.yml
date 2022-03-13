@@ -8,7 +8,7 @@
           state: present
           update_cache: yes
         loop:
-          - python2
+          - python2.7
           - apache2
           - mysql-server
           - php7.4
