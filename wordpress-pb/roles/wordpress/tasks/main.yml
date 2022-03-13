@@ -53,6 +53,7 @@
           remote_src: yes
 
       - name: Update default Apache site
+        become_user: devops
         lineinfile:
           path: /etc/apache2/sites-enabled/000-default.conf
           state: present
