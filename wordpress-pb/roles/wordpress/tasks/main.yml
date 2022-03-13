@@ -1,14 +1,13 @@
 ---
 # tasks file for wordpress
 
-      - name: Install WordPress and supporting applications on web server
+      - name: Install supporting applications
         become: yes
         apt: 
           name: "{{ item }}"
           state: present
           update_cache: yes
         loop:
-          - wordpress
           - apache2
           - mysql-server
           - php7.2-mysql
@@ -22,16 +21,6 @@
           - python3-pip
           - mysql-client
           
-
-      # - name: Install Python
-      #   raw: apt install -y python-minimal
-   
-
-      # - name: Install PyMySQL
-      #   pip:
-      #     name: pymysql
-      #     state: present
-
       - name: Create MySQL DB
         mysql_db: name="{{ wp_mysql_db }}" state=present
         become: yes
@@ -55,6 +44,22 @@
           mode: '0755'
         become: yes
 
+
+        - name: Download and install Wordpress
+          become: yes
+          unarchive:
+            src: https://wordpress.org/latest.tar.gz
+            dest: /var/www/
+            remote_src: yes
+
+        - name: Update default Apache site
+          lineinfile:
+            path: /etc/apache2/sites-enabled/000-default.conf
+            state: present
+            regexp: '(.)+DocumentRoot /var/www/html'
+            line: 'DocumentRoot /var/www/wordpress'
+          notify: Restart Apache  
+
       - name: Copy PHP config file to server
         template:
           src: "wp-config.php.j2"
@@ -68,14 +73,14 @@
           dest: "/etc/apache2/sites-enabled/000-default.conf"
 
 
-      - name: Create document root
-        file:
-          path: "/var/www/{{ http_host }}"
-          state: directory
-          owner: "devops"
-          group: "root"
-          mode: '0755'
-        become: yes
+      # - name: Create document root
+      #   file:
+      #     path: "/var/www/{{ http_host }}"
+      #     state: directory
+      #     owner: "devops"
+      #     group: "root"
+      #     mode: '0755'
+      #   become: yes
 
       # - name: Disable default Apache site
       #   shell: /usr/sbin/a2dissite 000-default.conf
@@ -87,13 +92,13 @@
       #   shell: /usr/sbin/a2enmod rewrite
       #   notify: Reload Apache
 
-      - name: Enable new site
-        shell: /usr/sbin/a2ensite "{{ http_conf }}"
-        notify: Reload Apache service
+      # - name: Enable new site
+      #   shell: /usr/sbin/a2ensite "{{ http_conf }}"
+      #   notify: Reload Apache service
 
-      - name: UFW - Allow HTTP on port 8080
-        ufw:
-          rule: allow
-          port: "{{ http_port }}" 
-          proto: tcp
-        become: yes
+      # - name: UFW - Allow HTTP on port 8080
+      #   ufw:
+      #     rule: allow
+      #     port: "{{ http_port }}" 
+      #     proto: tcp
+      #   become: yes
