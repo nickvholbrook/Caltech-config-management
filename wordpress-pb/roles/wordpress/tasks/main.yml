@@ -52,14 +52,14 @@
           dest: /var/www/
           remote_src: yes
 
-      - name: Update default Apache site
-        become_user: devops
-        lineinfile:
-          path: /etc/apache2/sites-enabled/000-default.conf
-          state: present
-          regexp: '(.)+DocumentRoot /var/www/html'
-          line: 'DocumentRoot /var/www/wordpress'
-        notify: Restart Apache  
+      # - name: Update default Apache site
+      #   become_user: devops
+      #   lineinfile:
+      #     path: /etc/apache2/sites-enabled/000-default.conf
+      #     state: present
+      #     regexp: '(.)+DocumentRoot /var/www/html'
+      #     line: 'DocumentRoot /var/www/wordpress'
+      #   notify: Restart Apache  
 
       - name: Copy PHP config file to server
         template:
@@ -67,11 +67,12 @@
           dest: "/var/www/wordpress/wp-config.php"
         become: yes
 
-      # - name: Set up Apache VirtualHost
-      #   become: yes
-      #   template:
-      #     src: "apache.conf.j2"
-      #     dest: "/etc/apache2/sites-enabled/000-default.conf"
+      - name: Set up Apache VirtualHost
+        become: yes
+        template:
+          src: "apache.conf.j2"
+          dest: "/etc/apache2/sites-enabled/000-default.conf"
+        notify: Restart Apache
 
 
       # - name: Create document root
