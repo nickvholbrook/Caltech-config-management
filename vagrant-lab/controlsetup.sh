@@ -11,6 +11,8 @@ sudo apt-add-repository --yes --update ppa:ansible/ansible -y
 sudo apt install ansible -y
 ansible --version
 
+sudo vi /etc/ssh/sshd_config 
+PasswordAuthentication yes 
 
 # Run on web and DB.  Create and copy over public key
 useradd -m devops -p "password1234"
