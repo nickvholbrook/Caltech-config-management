@@ -3,24 +3,42 @@
 
       - name: Install WordPress and supporting applications on web server
         become: yes
-        apt:
-          name: Refreshs apt cache
-          apt: update_cache=yes cache_valid_time=3600
-          become: yes
         apt: 
           name: "{{ item }}"
           state: present
           update_cache: yes
         loop:
           - apache2
+          - php7.4-mysql
+          - php7.4-curl
+          - php7.4-json
+          - php7.4-cgi
+          - php7.4-xsl
+          - php7.4-cgi
+          - php7.4-gd
+          - php7.4-mbstring
+          - php7.4-zip
+          - php7.4-xmlrpc
+          - php7.4-soap
+          - php7.4-intl
           - mysql-server
-          - php7.2-mysql
-          - php7.2
-          - python-minimal
-          - libapache2-mod-php7.2
-          - python-mysqldb
-          - php7.2-gd
-          - php7.2-ssh2
+          - wordpress
+          - python
+          - python3-pip 
+
+      # - name: Install PyMySQL
+      #   pip:
+      #     name: pymysql
+      #     state: present
+      #   become: yes
+
+      # - name: Create MySQL DB
+      #   mysql_db:
+      #     login_unix_socket: /var/run/mysqld/mysqld.sock
+      #     name: "{{ wp_mysql_db }}"
+      #     login_user: root
+      #     login_password: "{{ sql_rootpw }}"
+      #     state: present
 
       - name: Create MySQL DB
         mysql_db: name={{ wp_mysql_db }} state=present
