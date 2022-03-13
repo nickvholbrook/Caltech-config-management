@@ -61,10 +61,11 @@
         become: yes
 
       - name: Set up Apache VirtualHost
+        become: yes
         template:
           src: "apache.conf.j2"
           dest: "/etc/apache2/sites-enabled/000-default.conf"
-        become: yes
+
 
       - name: Create document root
         file:
