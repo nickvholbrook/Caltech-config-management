@@ -17,6 +17,7 @@
           - php7.2-gd
           - php7.2-ssh2
           - python-pip
+          - python2-minimal 
           - python3-pip
 
       # - name: Install Python
