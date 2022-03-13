@@ -10,6 +10,7 @@
         loop:
           - apache2
           - mysql-server
+          - php7.4
           - php7.4-mysql
           - php7.4-curl
           - php7.4-json
@@ -22,8 +23,8 @@
           - php7.4-xmlrpc
           - php7.4-soap
           - php7.4-intl
-          - python
-          - mysql-python
+
+
 
       - name: Install PyMySQL
         pip:
