@@ -6,3 +6,10 @@
 - name: "Restart Apache"
   service: name=apache2 state=restarted
   become: yes
+
+- name: "start mysql"
+  service: name=mysql enabled=yes state=started
+  become: yes
+- name: restart mysql 
+  service: name=mysql enabled=yes state=restarted
+  become: yes

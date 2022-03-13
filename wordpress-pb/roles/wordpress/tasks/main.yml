@@ -23,7 +23,7 @@
           
       - name: Start Apache
         service: name=apache2 enabled=yes state=started
-        
+
       - name: Create MySQL DB
         mysql_db: name="{{ wp_mysql_db }}" state=present
         become: yes
@@ -72,7 +72,7 @@
       - name: Set the correct permissions for Wordpress files
         become: yes
         command: find /var/www/wordpress/ -type f -exec chmod 641 {} \;
- 
+         
       # - name: Update default Apache site
       #   become_user: devops
       #   lineinfile:
@@ -92,18 +92,9 @@
         become: yes
         template:
           src: "apache.conf.j2"
-          dest: "/etc/apache2/sites-enabled/000-default.conf"
+          dest: "/etc/apache2/sites-available/wordpress.conf"
         notify: Restart Apache
 
-
-      # - name: Create document root
-      #   file:
-      #     path: "/var/www/{{ http_host }}"
-      #     state: directory
-      #     owner: "devops"
-      #     group: "root"
-      #     mode: '0755'
-      #   become: yes
 
       # - name: Disable default Apache site
       #   shell: /usr/sbin/a2dissite 000-default.conf
@@ -111,13 +102,13 @@
       #   notify: Restart Apache
 
 
-      # - name: Enable rewrite module
-      #   shell: /usr/sbin/a2enmod rewrite
-      #   notify: Reload Apache
+      - name: Enable rewrite module
+        shell: /usr/sbin/a2enmod rewrite
+        notify: Reload Apache
 
-      # - name: Enable new site
-      #   shell: /usr/sbin/a2ensite "{{ http_conf }}"
-      #   notify: Reload Apache service
+      - name: Enable new site
+        shell: /usr/sbin/a2ensite "wordpress.conf"
+        notify: Reload Apache service
 
       # - name: UFW - Allow HTTP on port 8080
       #   ufw:
