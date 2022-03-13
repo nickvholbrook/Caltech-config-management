@@ -103,10 +103,12 @@
 
 
       - name: Enable rewrite module
+        become: yes
         shell: /usr/sbin/a2enmod rewrite
         notify: Reload Apache
 
       - name: Enable new site
+        become: yes
         shell: /usr/sbin/a2ensite "wordpress.conf"
         notify: Reload Apache service
 
