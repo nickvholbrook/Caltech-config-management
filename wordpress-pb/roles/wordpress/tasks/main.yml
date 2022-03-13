@@ -35,7 +35,7 @@
           state: present
 
       - name: Create MySQL DB
-        mysql_db: name= "{{ wp_mysql_db }}" state=present
+        mysql_db: name="{{ wp_mysql_db }}" state=present
         become: yes
 
   
