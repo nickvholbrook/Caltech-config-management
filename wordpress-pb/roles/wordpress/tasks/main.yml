@@ -45,6 +45,15 @@
           login_unix_socket: /var/run/mysqld/mysqld.sock
         become: yes
 
+      - name: Create Wordpress folder
+        file:
+          path: "/var/www/wordpress"
+          state: directory
+          owner: "devops"
+          group: "root"
+          mode: '0755'
+        become: yes
+
       - name: Copy PHP config file to server
         template:
           src: "wp-config.php.j2"
@@ -57,6 +66,8 @@
           dest: "/etc/apache2/sites-available/{{ http_conf }}"
           notify: Reload Apache
         become: yes
+
+
 
       - name: Create document root
         file:
