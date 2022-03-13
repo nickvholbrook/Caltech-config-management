@@ -1,8 +1,7 @@
----
-   - name: "Reload Apache"
-     service: name=apache2 state=reloaded
-     becomes: true
+- name: "Reload Apache"
+  service: name=apache2 state=reloaded
 
-   - name: "Restart Apache"
-     service: name=apache2 state=restarted
-     becomes: true
+
+- name: "Restart Apache"
+  service: name=apache2 state=restarted
+  becomes: true
