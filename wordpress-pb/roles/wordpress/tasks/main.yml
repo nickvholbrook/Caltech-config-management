@@ -16,8 +16,8 @@
           - python-mysqldb
           - php7.2-gd
           - php7.2-ssh2
+          - python2.7
           - python-pip
-          - python2-minimal 
           - python3-pip
 
       # - name: Install Python
