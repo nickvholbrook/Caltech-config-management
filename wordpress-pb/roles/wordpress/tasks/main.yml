@@ -107,10 +107,10 @@
         shell: /usr/sbin/a2enmod rewrite
         notify: Reload Apache
 
-      - name: Enable new site
-        become: yes
-        shell: /usr/sbin/a2ensite "000-default.conf"
-        notify: Reload Apache
+      # - name: Enable new site
+      #   become: yes
+      #   shell: /usr/sbin/a2ensite "000-default.conf"
+      #   notify: Reload Apache
 
       # - name: UFW - Allow HTTP on port 8080
       #   ufw:
