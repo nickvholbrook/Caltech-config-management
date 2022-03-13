@@ -24,10 +24,10 @@
       #   raw: apt install -y python-minimal
    
 
-      - name: Install PyMySQL
-        pip:
-          name: pymysql
-          state: present
+      # - name: Install PyMySQL
+      #   pip:
+      #     name: pymysql
+      #     state: present
 
       - name: Create MySQL DB
         mysql_db: name="{{ wp_mysql_db }}" state=present
