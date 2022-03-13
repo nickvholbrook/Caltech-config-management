@@ -64,7 +64,6 @@
         template:
           src: "apache.conf.j2"
           dest: "/etc/apache2/sites-enabled/000-default.conf"
-          notify: Reload Apache
         become: yes
 
 
