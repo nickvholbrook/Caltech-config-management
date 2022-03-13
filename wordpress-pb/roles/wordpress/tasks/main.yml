@@ -86,7 +86,7 @@
       #   notify: Reload Apache
 
       - name: Enable new site
-        shell: /usr/sbin/a2ensite "nicksblog.com"
+        shell: /usr/sbin/a2ensite "{{ http_conf }}"
         notify: Reload Apache service
 
       - name: UFW - Allow HTTP on port 8080
