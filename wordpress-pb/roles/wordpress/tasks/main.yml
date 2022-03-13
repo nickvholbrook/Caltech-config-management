@@ -23,6 +23,7 @@
           - php7.4-soap
           - php7.4-intl
           - python
+          - mysql-python
 
       - name: Install PyMySQL
         pip:
