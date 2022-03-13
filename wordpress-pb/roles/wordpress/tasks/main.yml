@@ -53,6 +53,7 @@
           remote_src: yes
 
       - name: Update ownership to Apache user
+        become: yes
         file:
           path: /var/www/wordpress/
           state: directory
@@ -60,9 +61,11 @@
           owner: devops
 
       - name: Set the correct permissions on Wordpress directories
+        become: yes
         command: find /var/www/wordpress/ -type d -exec chmod 750 {} \;
 
       - name: Set the correct permissions for Wordpress files
+        become: yes
         command: find /var/www/wordpress/ -type f -exec chmod 640 {} \;
  
       # - name: Update default Apache site
