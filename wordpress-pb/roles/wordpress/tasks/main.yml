@@ -42,7 +42,7 @@
 
       - name: Create Wordpress folder
         file:
-          path: "/var/www/wordpress"
+          path: "/var/www/html/wordpress"
           state: directory
           owner: "devops"
           group: "root"
@@ -54,24 +54,24 @@
         become: yes
         unarchive:
           src: https://wordpress.org/latest.tar.gz
-          dest: /var/www/
+          dest: /var/www/html/
           remote_src: yes
 
       - name: Update ownership to Apache user
         become: yes
         file:
-          path: /var/www/wordpress/
+          path: /var/www/html/wordpress/
           state: directory
           recurse: yes
           owner: devops
 
       - name: Set the correct permissions on Wordpress directories
         become: yes
-        command: find /var/www/wordpress/ -type d -exec chmod 755 {} \;
+        command: find /var/www/html/wordpress/ -type d -exec chmod 755 {} \;
 
       - name: Set the correct permissions for Wordpress files
         become: yes
-        command: find /var/www/wordpress/ -type f -exec chmod 755 {} \;
+        command: find /var/www/html/wordpress/ -type f -exec chmod 755 {} \;
          
       # - name: Update default Apache site
       #   become_user: devops
@@ -85,14 +85,14 @@
       - name: Copy PHP config file to server
         template:
           src: "wp-config.php.j2"
-          dest: "/var/www/wordpress/wp-config.php"
+          dest: "/var/www/html/wordpress/wp-config.php"
         become: yes
 
       - name: Set up Apache VirtualHost
         become: yes
         template:
           src: "apache.conf.j2"
-          dest: "/etc/apache2/sites-available/wordpress.conf"
+          dest: "/etc/apache2/sites-enabled/000-default.conf"
         notify: Restart Apache
 
 
@@ -109,7 +109,7 @@
 
       - name: Enable new site
         become: yes
-        shell: /usr/sbin/a2ensite "wordpress.conf"
+        shell: /usr/sbin/a2ensite "000-default.conf"
         notify: Reload Apache
 
       # - name: UFW - Allow HTTP on port 8080

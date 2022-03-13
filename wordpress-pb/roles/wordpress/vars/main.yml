@@ -1,9 +1,9 @@
 ---
 # vars file for wordpress
 wp_mysql_db: wordpress
-wp_mysql_user: wordpress
-wp_mysql_password: "randompassword"
+wp_mysql_user: wp-user
+wp_mysql_password: "password1234"
 sql_rootpw: "mypass"
-http_host: "nicksblog.com"
+http_host: "nicksblog"
 http_port: 80
 http_conf: "000-default.conf"
