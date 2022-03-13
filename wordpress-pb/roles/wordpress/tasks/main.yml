@@ -3,10 +3,6 @@
 
       - name: Install WordPress and supporting applications on web server
         become: yes
-        apt:
-          name: Refreshs apt cache
-          apt: update_cache=yes cache_valid_time=3600
-          become: yes
         apt: 
           name: "{{ item }}"
           state: present
