@@ -24,12 +24,6 @@
           - php7.4-soap
           - php7.4-intl
 
-      - name: Check for Python
-        raw: test -e /usr/bin/python
-        changed_when: false
-        failed_when: false
-        register: check_python
-
       - name: Install Python
         raw: apt -y update && apt install -y python-minimal
         when: check_python.rc != 0      
