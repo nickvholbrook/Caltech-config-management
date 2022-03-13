@@ -24,7 +24,6 @@
           - php7.4-xmlrpc
           - php7.4-soap
           - php7.4-intl
-          - python-pymysql
 
       # - name: Install Python
       #   raw: apt install -y python-minimal
