@@ -24,6 +24,10 @@
           - php7.4-intl
           - python
 
+      - name: Install PyMySQL
+        pip:
+          name: pymysql
+          state: present
 
       - name: Create MySQL DB
         mysql_db: name={{ wp_mysql_db }} state=present
