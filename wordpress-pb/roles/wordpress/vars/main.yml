@@ -6,4 +6,4 @@ wp_mysql_password: "randompassword"
 sql_rootpw: "mypass"
 http_host: "nicksblog.com"
 http_port: 80
-http_conf: "nicksblogs.com.conf"
+http_conf: "wordpress"
