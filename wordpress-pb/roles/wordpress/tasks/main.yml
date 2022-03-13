@@ -17,7 +17,7 @@
           - php7.2-gd
           - php7.2-ssh2
           - python-pip
-          - python-pip3
+
 
       # - name: Install Python
       #   raw: apt install -y python-minimal
