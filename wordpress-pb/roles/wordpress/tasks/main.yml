@@ -60,17 +60,17 @@
           line: 'DocumentRoot /var/www/wordpress'
         notify: Restart Apache  
 
-    - name: Copy PHP config file to server
-      template:
-        src: "wp-config.php.j2"
-        dest: "/var/www/wordpress/wp-config.php"
-      become: yes
+      - name: Copy PHP config file to server
+        template:
+          src: "wp-config.php.j2"
+          dest: "/var/www/wordpress/wp-config.php"
+        become: yes
 
-    - name: Set up Apache VirtualHost
-      become: yes
-      template:
-        src: "apache.conf.j2"
-        dest: "/etc/apache2/sites-enabled/000-default.conf"
+      - name: Set up Apache VirtualHost
+        become: yes
+        template:
+          src: "apache.conf.j2"
+          dest: "/etc/apache2/sites-enabled/000-default.conf"
 
 
       # - name: Create document root
